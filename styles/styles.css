@@ -864,4 +864,472 @@ body{
 
 
 
+
 /* end respansive */
+/* منو */
+/* منوی همبرگری با رنگ‌های سفارشی */
+.iranian-hamburger-menu {
+    position: relative;
+    z-index: 1000;
+    float: left;
+    margin-top: 50px;
+}
+
+/* دکمه همبرگر */
+.hamburger-btn {
+    display: none;
+}
+
+/* آیکون همبرگر */
+.hamburger-icon {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    user-select: none;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(30, 136, 229, 1), rgba(30, 136, 229, 0.8));
+    border-radius: 12px;
+    border: 2px solid rgba(30, 136, 229, 0.5);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+}
+
+.hamburger-icon:hover {
+    background: linear-gradient(135deg, rgba(30, 136, 229, 0.9), rgba(30, 136, 229, 1));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.4);
+}
+
+/* خطوط همبرگر */
+.hamburger-line {
+    background: #ffffff;
+    display: block;
+    height: 3px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 28px;
+    border-radius: 2px;
+}
+
+.hamburger-line:before,
+.hamburger-line:after {
+    background: #ffffff;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 100%;
+    border-radius: 2px;
+}
+
+.hamburger-line:before {
+    top: -8px;
+    width: 20px;
+}
+
+.hamburger-line:after {
+    top: 8px;
+    width: 24px;
+}
+
+/* انیمیشن تبدیل به X */
+.hamburger-btn:checked ~ .hamburger-icon .hamburger-line {
+    background: transparent;
+}
+
+.hamburger-btn:checked ~ .hamburger-icon .hamburger-line:before {
+    transform: rotate(-45deg);
+    top: 0;
+    width: 28px;
+}
+
+.hamburger-btn:checked ~ .hamburger-icon .hamburger-line:after {
+    transform: rotate(45deg);
+    top: 0;
+    width: 28px;
+}
+
+.hamburger-btn:checked ~ .hamburger-icon {
+    background: linear-gradient(135deg, #3c3a3a75, rgba(60, 58, 58, 0.9));
+    border-color: #3c3a3a75;
+}
+
+/* منوی کشویی */
+.slide-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 350px;
+    height: 100vh;
+    background: linear-gradient(180deg, #3c3a3a75 0%, rgba(60, 58, 58, 0.85) 50%, #3c3a3a75 100%);
+    backdrop-filter: blur(20px);
+    box-shadow: -15px 0 40px rgba(0, 0, 0, 0.3);
+    padding: 100px 0 30px 0;
+    margin: 0;
+    list-style: none;
+    overflow-y: auto;
+    z-index: 999;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-left: 3px solid rgba(30, 136, 229, 1);
+}
+
+.hamburger-btn:checked ~ .slide-menu {
+    right: 0;
+}
+
+/* هدر منو */
+.menu-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(30, 136, 229, 1), rgba(30, 136, 229, 0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-header h3 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* آیتم‌های منو */
+.menu-item {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateX(50px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.hamburger-btn:checked ~ .slide-menu .menu-item {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* تاخیر انیمیشن برای هر آیتم */
+.hamburger-btn:checked ~ .slide-menu .menu-item:nth-child(2) { transition-delay: 0.1s; }
+.hamburger-btn:checked ~ .slide-menu .menu-item:nth-child(3) { transition-delay: 0.15s; }
+.hamburger-btn:checked ~ .slide-menu .menu-item:nth-child(4) { transition-delay: 0.2s; }
+.hamburger-btn:checked ~ .slide-menu .menu-item:nth-child(5) { transition-delay: 0.25s; }
+.hamburger-btn:checked ~ .slide-menu .menu-item:nth-child(6) { transition-delay: 0.3s; }
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+/* لینک‌های منو */
+.menu-item a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 25px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    direction: rtl;
+}
+
+.menu-item a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.3), transparent);
+    transition: right 0.5s ease;
+}
+
+.menu-item a:hover:before {
+    right: 100%;
+}
+
+.menu-item a:hover {
+    color: #ffffff;
+    background: rgba(30, 136, 229, 0.2);
+    padding-right: 35px;
+    border-right: 4px solid rgba(30, 136, 229, 1);
+}
+
+/* آیکون‌ها */
+.menu-item a i {
+    margin-left: 15px;
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    color: rgba(30, 136, 229, 1);
+}
+
+.menu-item a:hover i {
+    transform: scale(1.2) rotate(5deg);
+    color: #ffffff;
+}
+
+/* آیتم ویژه (اولین آیتم) */
+.menu-item.featured a {
+    background: linear-gradient(135deg, rgba(30, 136, 229, 0.2), rgba(30, 136, 229, 0.1));
+    margin: 0 15px 10px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(30, 136, 229, 0.4);
+    font-weight: bold;
+}
+
+.menu-item.featured a:hover {
+    background: linear-gradient(135deg, rgba(30, 136, 229, 0.4), rgba(30, 136, 229, 0.3));
+    transform: translateX(-8px);
+    box-shadow: 0 8px 20px rgba(30, 136, 229, 0.3);
+}
+
+/* پوشش پس‌زمینه */
+.hamburger-btn:checked ~ .menu-overlay {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(60, 58, 58, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 998;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease;
+}
+
+.menu-overlay {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+/* اسکرول بار سفارشی */
+.slide-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.slide-menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.slide-menu::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(30, 136, 229, 1), rgba(30, 136, 229, 0.7));
+    border-radius: 4px;
+}
+
+.slide-menu::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(30, 136, 229, 0.8), rgba(30, 136, 229, 1));
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .iranian-hamburger-menu {
+        display: block;
+    }
+    
+    .slide-menu {
+        width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide-menu {
+        width: 100vw;
+        right: -100vw;
+    }
+    
+    .menu-item a {
+        padding: 20px 20px;
+        font-size: 18px;
+    }
+    
+    .hamburger-icon {
+        padding: 12px;
+    }
+    
+    .hamburger-line {
+        width: 24px;
+    }
+}
+
+/* انیمیشن‌های اضافی */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(30, 136, 229, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(30, 136, 229, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(30, 136, 229, 0);
+    }
+}
+
+.hamburger-icon:active {
+    animation: pulse 0.6s;
+}
+
+/* افکت‌های jQuery */
+.menu-item.jquery-fade {
+    animation: fadeInRight 0.5s ease forwards;
+}
+
+.menu-item.jquery-slide {
+    animation: slideInRight 0.4s ease forwards;
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* مخفی کردن منوی همبرگری در سایزهای بزرگ */
+.iranian-hamburger-menu {
+    position: relative;
+    z-index: 1000;
+    display: none; /* پیش‌فرض مخفی */
+}
+
+/* نمایش منو فقط در سایزهای موبایل */
+@media (max-width: 768px) {
+    .iranian-hamburger-menu {
+        display: block;
+    }
+    
+    /* مخفی کردن منوی اصلی در موبایل */
+    #nav {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .iranian-hamburger-menu {
+        display: block;
+    }
+    
+    .slide-menu {
+        width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .iranian-hamburger-menu {
+        display: block;
+    }
+    
+    .slide-menu {
+        width: 100vw;
+        right: -100vw;
+    }
+    
+    .menu-item a {
+        padding: 20px 20px;
+        font-size: 18px;
+    }
+    
+    .hamburger-icon {
+        padding: 12px;
+    }
+    
+    .hamburger-line {
+        width: 24px;
+    }
+}
+
+/* اطمینان از مخفی بودن در دسکتاپ */
+@media (min-width: 769px) {
+    .iranian-hamburger-menu {
+        display: none !important;
+    }
+    
+    /* نمایش منوی اصلی در دسکتاپ */
+    #nav {
+        display: block;
+    }
+}
+
+/* تنظیمات اضافی برای سایزهای مختلف */
+@media (max-width: 992px) and (min-width: 769px) {
+    .iranian-hamburger-menu {
+        display: none;
+    }
+}
+
+/* برای تبلت‌ها */
+@media (max-width: 768px) and (min-width: 577px) {
+    .iranian-hamburger-menu {
+        display: block;
+    }
+    
+    .hamburger-icon {
+        padding: 12px;
+        background: linear-gradient(135deg, rgba(30, 136, 229, 0.9), rgba(30, 136, 229, 0.7));
+    }
+    
+    .slide-menu {
+        width: 320px;
+    }
+}
+
+/* برای موبایل‌های کوچک */
+@media (max-width: 576px) {
+    .iranian-hamburger-menu {
+        display: block;
+    }
+    
+    .hamburger-icon {
+        padding: 10px;
+        border-radius: 8px;
+    }
+    
+    .hamburger-line {
+        width: 22px;
+        height: 2px;
+    }
+    
+    .hamburger-line:before,
+    .hamburger-line:after {
+        height: 2px;
+    }
+    
+    .hamburger-line:before {
+        top: -6px;
+        width: 18px;
+    }
+    
+    .hamburger-line:after {
+        top: 6px;
+        width: 20px;
+    }
+}
