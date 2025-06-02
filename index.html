@@ -32,16 +32,58 @@
             </nav>
 
             <!-- sid respansive -->
-            <div class="sid_responsive">
-            <input class="menu-btn" type="checkbox" id="menu-btn" />
-            <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-            <ul class="menu min-vh-100 flex-column">
-                    <li class="f-li li"><a href="#"><i class="fas fa-home"></i>home</a></li>
-                    <li class="li"><a href="#"><i class="fas fa-store"></i>product</a></li>
-                    <li class="li"><a href="#"><i class="fas fa-info-circle"></i>about</a></li>
-                    <li class="li"><a href="#"><i class="fas fa-phone-square-alt"></i>call</a></li>
-            </ul>
-        </div>
+     
+            <div class="iranian-hamburger-menu">
+                <input type="checkbox" id="hamburger-btn" class="hamburger-btn">
+                <label for="hamburger-btn" class="hamburger-icon">
+                    <span class="hamburger-line"></span>
+                </label>
+                
+                <div class="menu-overlay"></div>
+                
+                <ul class="slide-menu">
+                    <div class="menu-header">
+                        <h3>منوی اصلی</h3>
+                    </div>
+                    
+                    <li class="menu-item featured">
+                        <a href="#home">
+                            <span>خانه</span>
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#about">
+                            <span>درباره ما</span>
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#services">
+                            <span>خدمات</span>
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#portfolio">
+                            <span>نمونه کارها</span>
+                            <i class="fas fa-briefcase"></i>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#contact">
+                            <span>تماس با ما</span>
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- end -->
             <!-- end -->
 
             <div class="clearfix"></div>
@@ -366,18 +408,431 @@
      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
      <script src="test.js"></script>
-     <script>
+         <script>
         
-        $(document).ready(function(){
-            $('.menu-icon').click(function(){
-                $('.menu').animate({
-                    width:'toggle',
-                })
-            }) 
+        $(document).ready(function() {
+    // تنظیمات اولیه
+    const $hamburgerBtn = $('#hamburger-btn');
+    const $slideMenu = $('.slide-menu');
+    const $menuItems = $('.menu-item');
+    const $menuOverlay = $('.menu-overlay');
+    
+    // باز کردن/بستن منو
+    $hamburgerBtn.on('change', function() {
+        if ($(this).is(':checked')) {
+            openMenu();
+        } else {
+            closeMenu();
+        }
+    });
+    
+    // بستن منو با کلیک روی overlay
+    $menuOverlay.on('click', function() {
+        closeMenu();
+    });
+    
+    // بستن منو با کلیک روی آیتم‌ها
+    $menuItems.find('a').on('click', function() {
+        setTimeout(() => {
+            closeMenu();
+        }, 300);
+    });
+    
+    // بستن منو با کلید ESC
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && $hamburgerBtn.is(':checked')) {
+            closeMenu();
+        }
+    });
+    
+    // تابع باز کردن منو
+    function openMenu() {
+        $('body').addClass('menu-open');
+        
+        // انیمیشن آیتم‌های منو
+        $menuItems.each(function(index) {
+            const $item = $(this);
+            setTimeout(() => {
+                $item.addClass('jquery-fade');
+            }, index * 100);
+        });
+        
+        // افکت رنگی برای آیکون‌ها
+        $menuItems.find('i').each(function(index) {
+            const $icon = $(this);
+            setTimeout(() => {
+                $icon.css({
+                    'color': 'rgba(30, 136, 229, 1)',
+                    'transform': 'scale(1.1)'
+                });
+            }, index * 150);
+        });
+    }
+    
+    // تابع بستن منو
+    function closeMenu() {
+        $hamburgerBtn.prop('checked', false);
+        $('body').removeClass('menu-open');
+        
+        // حذف کلاس‌های انیمیشن
+        $menuItems.removeClass('jquery-fade jquery-slide');
+        
+        // بازگردانی آیکون‌ها
+        $menuItems.find('i').css({
+            'color': '',
+            'transform': ''
+        });
+    }
+    
+    // انیمیشن hover برای آیتم‌های منو
+    $menuItems.on('mouseenter', function() {
+        $(this).find('a').animate({
+            paddingRight: '40px'
+        }, 200);
+        
+        $(this).find('i').css({
+            'transform': 'scale(1.3) rotate(10deg)',
+            'color': '#ffffff'
+        });
+    });
+    
+    $menuItems.on('mouseleave', function() {
+        $(this).find('a').animate({
+            paddingRight: '25px'
+        }, 200);
+        
+        $(this).find('i').css({
+            'transform': 'scale(1) rotate(0deg)',
+            'color': 'rgba(30, 136, 229, 1)'
+        });
+    });
+    
+    // انیمیشن کلیک برای آیتم‌های منو
+    $menuItems.on('click', function() {
+        const $item = $(this);
+        
+        // افکت کلیک
+        $item.css('transform', 'scale(0.95)');
+        setTimeout(() => {
+            $item.css('transform', 'scale(1)');
+        }, 150);
+        
+        // افکت رنگی موقت
+        $item.find('a').css({
+            'background': 'rgba(30, 136, 229, 0.4)',
+            'border-right': '6px solid rgba(30, 136, 229, 1)'
+        });
+        
+        setTimeout(() => {
+            $item.find('a').css({
+                'background': '',
+                'border-right': ''
+            });
+        }, 500);
+    });
+    
+    // انیمیشن لودینگ برای آیکون همبرگر
+    $('.hamburger-icon').on('click', function() {
+        const $icon = $(this);
+        
+        // افکت پالس
+        $icon.addClass('pulse-effect');
+        setTimeout(() => {
+            $icon.removeClass('pulse-effect');
+        }, 600);
+    });
+    
+    // انیمیشن اسکرول در منو
+    $slideMenu.on('scroll', function() {
+        const scrollTop = $(this).scrollTop();
+        const $header = $('.menu-header');
+        
+        if (scrollTop > 20) {
+            $header.css({
+                'box-shadow': '0 2px 10px rgba(0,0,0,0.3)',
+                'background': 'linear-gradient(135deg, rgba(30, 136, 229, 0.95), rgba(30, 136, 229, 0.85))'
+            });
+        } else {
+            $header.css({
+                'box-shadow': '',
+                'background': 'linear-gradient(135deg, rgba(30, 136, 229, 1), rgba(30, 136, 229, 0.8))'
+            });
+        }
+    });
+    
+    // تشخیص تغییر اندازه صفحه
+    $(window).on('resize', function() {
+        if ($(window).width() > 768 && $hamburgerBtn.is(':checked')) {
+            closeMenu();
+        }
+    });
+    
+    // انیمیشن ورود اولیه
+    setTimeout(() => {
+        $('.hamburger-icon').addClass('initial-bounce');
+    }, 1000);
+    
+    // افکت موج برای کلیک
+    $menuItems.on('click', function(e) {
+        const $ripple = $('<span class="ripple"></span>');
+        const $button = $(this);
+        const buttonPos = $button.offset();
+        const xPos = e.pageX - buttonPos.left;
+        const yPos = e.pageY - buttonPos.top;
+        
+        $ripple.css({
+            top: yPos + 'px',
+            left: xPos + 'px'
+        });
+        
+        $button.append($ripple);
+        
+        setTimeout(() => {
+            $ripple.remove();
+        }, 600);
+    });
+    
+    // تابع تغییر تم (اختیاری)
+    function changeTheme(primaryColor, secondaryColor) {
+        const $style = $('<style>');
+        $style.text(`
+            .hamburger-icon {
+                background: linear-gradient(135deg, ${primaryColor}, ${primaryColor}cc) !important;
+                border-color: ${primaryColor}80 !important;
+            }
+            .slide-menu {
+                background: linear-gradient(180deg, ${secondaryColor}, ${secondaryColor}dd, ${secondaryColor}) !important;
+                border-left-color: ${primaryColor} !important;
+            }
+            .menu-header {
+                background: linear-gradient(135deg, ${primaryColor}, ${primaryColor}cc) !important;
+            }
+            .menu-item a:hover {
+                background: ${primaryColor}33 !important;
+                border-right-color: ${primaryColor} !important;
+            }
+            .menu-item a i {
+                color: ${primaryColor} !important;
+            }
+        `);
+        $('head').append($style);
+    }
+    
+    // مثال استفاده از تغییر تم
+    // changeTheme('rgba(30, 136, 229, 1)', '#3c3a3a75');
+});
 
-           
-                // alert('slam')
-            })
+// CSS اضافی برای انیمیشن‌های jQuery
+const additionalCSS = `
+<style>
+.pulse-effect {
+    animation: pulse 0.6s ease-in-out;
+}
+
+.initial-bounce {
+    animation: bounce 0.8s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    80% {
+        transform: translateY(-5px);
+    }
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(30, 136, 229, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+.menu-item {
+    position: relative;
+    overflow: hidden;
+}
+
+/* انیمیشن‌های اضافی برای تعامل بهتر */
+.hamburger-icon:hover .hamburger-line {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.menu-item a {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide-menu {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(30, 136, 229, 1) rgba(255, 255, 255, 0.1);
+}
+</style>
+`;
+
+// اضافه کردن CSS به head
+$('head').append(additionalCSS);
+
+$(document).ready(function() {
+    // بررسی سایز صفحه در لود اولیه
+    checkScreenSize();
+    
+    // تنظیمات اولیه
+    const $hamburgerBtn = $('#hamburger-btn');
+    const $slideMenu = $('.slide-menu');
+    const $menuItems = $('.menu-item');
+    const $menuOverlay = $('.menu-overlay');
+    const $iranianMenu = $('.iranian-hamburger-menu');
+    
+    // تابع بررسی سایز صفحه
+    function checkScreenSize() {
+        const windowWidth = $(window).width();
+        
+        if (windowWidth > 768) {
+            // مخفی کردن منوی همبرگری در دسکتاپ
+            $iranianMenu.hide();
+            closeMenu();
+        } else {
+            // نمایش منوی همبرگری در موبایل
+            $iranianMenu.show();
+        }
+    }
+    
+    // تشخیص تغییر اندازه صفحه
+    $(window).on('resize', function() {
+        checkScreenSize();
+    });
+    
+    // باز کردن/بستن منو (فقط در موبایل)
+    $hamburgerBtn.on('change', function() {
+        if ($(window).width() <= 768) {
+            if ($(this).is(':checked')) {
+                openMenu();
+            } else {
+                closeMenu();
+            }
+        }
+    });
+    
+    // بستن منو با کلیک روی overlay
+    $menuOverlay.on('click', function() {
+        if ($(window).width() <= 768) {
+            closeMenu();
+        }
+    });
+    
+    // بستن منو با کلیک روی آیتم‌ها
+    $menuItems.find('a').on('click', function() {
+        if ($(window).width() <= 768) {
+            setTimeout(() => {
+                closeMenu();
+            }, 300);
+        }
+    });
+    
+    // بستن منو با کلید ESC
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && $hamburgerBtn.is(':checked') && $(window).width() <= 768) {
+            closeMenu();
+        }
+    });
+    
+    // تابع باز کردن منو
+    function openMenu() {
+        if ($(window).width() <= 768) {
+            $('body').addClass('menu-open');
+            
+            // انیمیشن آیتم‌های منو
+            $menuItems.each(function(index) {
+                const $item = $(this);
+                setTimeout(() => {
+                    $item.addClass('jquery-fade');
+                }, index * 100);
+            });
+            
+            // افکت رنگی برای آیکون‌ها
+            $menuItems.find('i').each(function(index) {
+                const $icon = $(this);
+                setTimeout(() => {
+                    $icon.css({
+                        'color': 'rgba(30, 136, 229, 1)',
+                        'transform': 'scale(1.1)'
+                    });
+                }, index * 150);
+            });
+        }
+    }
+    
+    // تابع بستن منو
+    function closeMenu() {
+        $hamburgerBtn.prop('checked', false);
+        $('body').removeClass('menu-open');
+        
+        // حذف کلاس‌های انیمیشن
+        $menuItems.removeClass('jquery-fade jquery-slide');
+        
+        // بازگردانی آیکون‌ها
+        $menuItems.find('i').css({
+            'color': '',
+            'transform': ''
+        });
+    }
+    
+    // انیمیشن hover برای آیتم‌های منو (فقط در موبایل)
+    $menuItems.on('mouseenter', function() {
+        if ($(window).width() <= 768) {
+            $(this).find('a').animate({
+                paddingRight: '40px'
+            }, 200);
+            
+            $(this).find('i').css({
+                'transform': 'scale(1.3) rotate(10deg)',
+                'color': '#ffffff'
+            });
+        }
+    });
+    
+    $menuItems.on('mouseleave', function() {
+        if ($(window).width() <= 768) {
+            $(this).find('a').animate({
+                paddingRight: '25px'
+            }, 200);
+            
+            $(this).find('i').css({
+                'transform': 'scale(1) rotate(0deg)',
+                'color': 'rgba(30, 136, 229, 1)'
+            });
+        }
+    });
+    
+    // غیرفعال کردن منو در حالت landscape تبلت
+    $(window).on('orientationchange', function() {
+        setTimeout(() => {
+            checkScreenSize();
+        }, 100);
+    });
+});
+
      </script>
      
 </body>
